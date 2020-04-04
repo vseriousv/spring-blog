@@ -5,6 +5,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div>Hello, {{some}}</div>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <input type="submit" value="Sign Out"/>
+</form>
+<div>
+    <form method="post">
+        <input type="text" name="text" placeholder="Введите сообщение" /><br /><br />
+        <input type="text" name="tag" placeholder="Введите тег" /><br /><br />
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        <input type="submit" value="Добавить" /><br />
+    </form>
+</div>
+<br />
+<div>Список сообщений</div>
+<form method="post" action="filter">
+    <input type="text" name="filter" placeholder="введите тег"/>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <input type="submit" value="Найти">
+</form>
+{{#messages}}
+<div>
+    <b>{{id}}</b>
+    <span>{{text}}</span>
+    <i>{{tag}}</i>
+    <strong>{{authorName}}</strong>
+</div>
+{{/messages}}
 </body>
 </html>
